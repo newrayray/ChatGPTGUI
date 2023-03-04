@@ -62,6 +62,12 @@ pip3 install -r requirements.txt
 
 ### 启动
 
+先创建文件夹
+```
+mkdir chat-history-json
+mkdir chat-history-txt
+```
+
 ```
 python ChuanhuChatbot.py
 ```
