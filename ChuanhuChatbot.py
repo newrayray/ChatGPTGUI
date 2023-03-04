@@ -1,15 +1,17 @@
 import json
-from datetime import datetime
-
 import gradio as gr
 import openai
 import os
 import sys
 import traceback
-
+import configparser
+from datetime import datetime
 # import markdown
 
-my_api_key = "sk-"  # 在这里输入你的 API 密钥
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+my_api_key = config.get('OPENAI', 'api_key')
 initial_prompt = "You are a helpful assistant."
 
 if my_api_key == "":

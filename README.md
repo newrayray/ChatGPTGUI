@@ -63,11 +63,21 @@ pip3 install -r requirements.txt
 ### 启动
 
 先创建文件夹
-```
+```bash
 mkdir chat-history-json
 mkdir chat-history-txt
 ```
 
+创建配置文件 config.ini
+```bash
+vim config.ini
+```
+
+```ini
+[OPENAI]
+api_key = your key
+```
+启动
 ```
 python ChuanhuChatbot.py
 ```
