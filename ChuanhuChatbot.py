@@ -218,8 +218,8 @@ with gr.Blocks() as demo:
 
 # 读取命令行参数
 parser = argparse.ArgumentParser()
-# -s/--share参数，用于分享应用
-parser.add_argument("-s", "--share", action="store_true", help="share the app")
+# -s/--share参数，用于分享应用，默认为False
+parser.add_argument("-s", "--share", action="store_true", default=False, help="share the app")
 args = parser.parse_args()
 share = args.share
 if share:
