@@ -1,3 +1,4 @@
+import argparse
 import json
 import gradio as gr
 import openai
@@ -166,8 +167,8 @@ def set_apikey(new_api_key, myKey):
 
 
 with gr.Blocks() as demo:
-    keyTxt = gr.Textbox(show_label=True, placeholder=f"在这里输入你的API-key...", value=my_api_key,
-                        label="API Key").style(container=True)
+    # keyTxt = gr.Textbox(show_label=True, placeholder=f"在这里输入你的API-key...", value=my_api_key,
+    #                     label="API Key").style(container=True)
     chatbot = gr.Chatbot().style(color_map=("#1D51EE", "#585A5B"))
     context = gr.State([])
     systemPrompt = gr.State(update_system(initial_prompt))
@@ -210,9 +211,18 @@ with gr.Blocks() as demo:
     retryBtn.click(retry, [chatbot, systemPrompt, context, myKey], [chatbot, context], show_progress=True)
     delLastBtn.click(delete_last_conversation, [chatbot, context], [chatbot, context], show_progress=True)
     reduceTokenBtn.click(reduce_token, [chatbot, systemPrompt, context, myKey], [chatbot, context], show_progress=True)
-    keyTxt.submit(set_apikey, [keyTxt, myKey], [keyTxt, myKey], show_progress=True)
+    # keyTxt.submit(set_apikey, [keyTxt, myKey], [keyTxt, myKey], show_progress=True)
     uploadBtn.upload(load_chat_history, uploadBtn, [chatbot, systemPrompt, context, systemPromptDisplay],
                      show_progress=True)
     saveBtn.click(save_chat_history, [saveFileName, systemPrompt, context], None, show_progress=True)
 
-demo.launch()
+# 读取命令行参数
+parser = argparse.ArgumentParser()
+# -s/--share参数，用于分享应用
+parser.add_argument("-s", "--share", action="store_true", help="share the app")
+args = parser.parse_args()
+share = args.share
+if share:
+    demo.launch(share=True)
+else:
+    demo.launch()
